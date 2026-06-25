@@ -1,0 +1,30 @@
+import React,{useState} from "react";
+import {Plus,Clock} from "lucide-react";
+import {useApp} from "../context/AppContext";
+import VideoEditor from "../components/VideoEditor";
+import VideoCard from "../components/VideoCard";
+import PlatformLogo from "../components/PlatformLogo";
+import {overallStatus,toDateTime,todayISO} from "../lib/helpers";
+import {PLATFORMS} from "../lib/constants";
+
+export default function Dashboard(){
+  const {videos,brands,media,activity,createItem,updateItem} = useApp();
+  const [editor,setEditor] = useState(null);
+  const now=new Date();
+  const upcoming=[...videos].filter(v=>toDateTime(v)>=now).sort((a,b)=>toDateTime(a)-toDateTime(b));
+  const today=videos.filter(v=>v.date===todayISO());
+  const published=videos.filter(v=>overallStatus(v)==="Published");
+  const overdue=videos.filter(v=>overallStatus(v)!=="Published"&&toDateTime(v)<now);
+  async function save(v){if(v.id){const {id,...rest}=v;await updateItem("videos",id,rest)}else await createItem("videos",v);setEditor(null);}
+  return <div className="page">
+    <div className="page-head"><div><span className="eyebrow">Enterprise command center</span><h2>Dashboard</h2></div><button className="primary" onClick={()=>setEditor({})}><Plus size={18}/> Add Video</button></div>
+    <section className="stats-grid">{[["Videos",videos.length],["Media",media.length],["Today",today.length],["Published",published.length],["Overdue",overdue.length],["Completion",videos.length?Math.round(published.length/videos.length*100)+"%":"0%"]].map(([l,v])=><div className="stat-card" key={l}><span>{l}</span><strong>{v}</strong></div>)}</section>
+    <section className="hero-card"><div><span className="eyebrow">Next upload</span><h3>{upcoming[0]?.title||"No upcoming content"}</h3>{upcoming[0]&&<p><Clock size={16}/>{upcoming[0].date} • {upcoming[0].time}</p>}</div><button className="primary" onClick={()=>setEditor({})}><Plus size={18}/> Quick Add</button></section>
+    <div className="two-panel">
+      <section className="panel"><h3>Upcoming Queue</h3>{upcoming.slice(0,6).length?upcoming.slice(0,6).map(v=><VideoCard key={v.id} video={v} onEdit={()=>setEditor(v)}/>):<div className="empty">No upcoming videos</div>}</section>
+      <section className="panel"><h3>Platform Overview</h3><div className="platform-overview">{Object.entries(PLATFORMS).map(([k,p])=><div className="platform-row" key={k}><PlatformLogo platform={k}/><div><b>{p.name}</b><span>{videos.filter(v=>v.platformStatus?.[k]==="Scheduled").length} scheduled • {videos.filter(v=>v.platformStatus?.[k]==="Published").length} published</span></div><strong>{videos.filter(v=>v.platformStatus?.[k]).length}</strong></div>)}</div></section>
+    </div>
+    <section className="panel"><h3>Recent Activity</h3>{activity.slice(0,8).length?activity.slice(0,8).map(a=><div className="activity-row" key={a.id}><b>{a.action}</b><span>{a.target}</span><small>{a.userName}</small></div>):<div className="empty">No activity yet</div>}</section>
+    {editor&&<VideoEditor initial={editor} brands={brands} onClose={()=>setEditor(null)} onSave={save}/>}
+  </div>
+}

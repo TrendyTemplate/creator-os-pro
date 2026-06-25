@@ -1,0 +1,8 @@
+import React,{useState} from "react";
+import {Plus,Trash2} from "lucide-react";
+import {useApp} from "../context/AppContext";
+export default function Team(){
+  const {tasks,brands,createItem,deleteItem}=useApp();
+  const [form,setForm]=useState(null);
+  return <div className="page"><div className="page-head"><div><span className="eyebrow">Assignments</span><h2>Team Workspace</h2></div><button className="primary" onClick={()=>setForm({title:"",assignee:"",status:"Todo",brandId:brands[0]?.id||"",due:""})}><Plus size={18}/> Add Task</button></div><div className="task-grid">{tasks.map(t=><article className="task-card" key={t.id}><span className={`task-status ${t.status}`}>{t.status}</span><h4>{t.title}</h4><p>{t.assignee||"Unassigned"} • {t.due||"No due date"}</p><button onClick={()=>deleteItem("tasks",t.id)}><Trash2 size={15}/></button></article>)}</div>{!tasks.length&&<div className="empty">No tasks yet</div>}{form&&<div className="modal"><form className="modal-card" onSubmit={async e=>{e.preventDefault();await createItem("tasks",form);setForm(null)}}><div className="modal-head"><h3>Add Task</h3><button type="button" onClick={()=>setForm(null)}>×</button></div><label>Task</label><input value={form.title} onChange={e=>setForm({...form,title:e.target.value})}/><label>Assignee</label><input value={form.assignee} onChange={e=>setForm({...form,assignee:e.target.value})}/><label>Status</label><select value={form.status} onChange={e=>setForm({...form,status:e.target.value})}><option>Todo</option><option>Doing</option><option>Review</option><option>Done</option></select><label>Due Date</label><input type="date" value={form.due} onChange={e=>setForm({...form,due:e.target.value})}/><button className="primary wide">Save Task</button></form></div>}</div>
+}
