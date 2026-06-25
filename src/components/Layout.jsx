@@ -1,13 +1,13 @@
 import React,{useState} from "react";
 import {NavLink,Outlet} from "react-router-dom";
-import {LayoutDashboard,CalendarDays,KanbanSquare,ListChecks,Image,BrainCircuit,BarChart3,Users,BriefcaseBusiness,Settings,LogOut,Moon,Sun,Bell,Search,Database,ShieldCheck,CreditCard,History,Activity} from "lucide-react";
+import {LayoutDashboard,CalendarDays,KanbanSquare,ListChecks,Image,BrainCircuit,BarChart3,Users,BriefcaseBusiness,Settings,LogOut,Moon,Sun,Bell,Search,Database,ShieldCheck,CreditCard,History,Activity,Send,FileText,Archive,Target,CalendarRange,Lightbulb,Bot,Home} from "lucide-react";
 import {useApp} from "../context/AppContext";
 
 const nav = [
-  ["/","Dashboard",LayoutDashboard],["/calendar","Calendar",CalendarDays],["/kanban","Kanban",KanbanSquare],
-  ["/content","Content Library",ListChecks],["/media","Media Library",Image],["/ai","AI Studio",BrainCircuit],
-  ["/analytics","Analytics",BarChart3],["/team","Team",Users],["/brands","Brands",BriefcaseBusiness],
-  ["/backup","Backup",Database],["/audit","Audit Log",History],["/admin","Admin",ShieldCheck],["/billing","Billing",CreditCard],["/health","System Health",Activity],["/settings","Settings",Settings]
+  ["/","Dashboard",LayoutDashboard],["/workspace","Workspace",Home],["/calendar","Calendar",CalendarDays],["/campaigns","Campaigns",CalendarRange],["/goals","Goals",Target],["/ideas","Idea Vault",Lightbulb],["/kanban","Kanban",KanbanSquare],
+  ["/content","Content Library",ListChecks],["/media","Media Library",Image],["/publish","Publish Center",Send],["/templates","Templates",FileText],["/automations","Automations",Bot],["/ai","AI Studio",BrainCircuit],
+  ["/analytics","Analytics",BarChart3],["/reports","Reports",FileText],["/archive","Archive",Archive],["/team","Team",Users],["/brands","Brands",BriefcaseBusiness],
+  ["/notifications","Notifications",Bell],["/backup","Backup",Database],["/audit","Audit Log",History],["/admin","Admin",ShieldCheck],["/billing","Billing",CreditCard],["/health","System Health",Activity],["/settings","Settings",Settings]
 ];
 
 export default function Layout(){

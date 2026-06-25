@@ -1,4 +1,4 @@
-# Creator OS Enterprise v3 Production Hardening
+# Creator OS v5 Final Core
 
 Enterprise Release v2 includes:
 - Real Firebase Storage file upload
@@ -71,3 +71,33 @@ This is an enterprise-style application core. A true commercial enterprise SaaS 
 5. Publish Storage rules from `storage.rules`.
 6. Add OPENAI_API_KEY in Vercel if AI Studio is needed.
 7. Test: Login, add video, upload media, export backup, import backup.
+
+## Added in Phase 4 Visible Release
+- Publish Center module
+- Platform connection placeholders
+- Publish queue
+- Manual mark-as-published workflow
+- Publish history
+- Publish checklist
+- Templates library
+- Notification/reminder center
+- Reports page
+- Archive page
+
+## Phase Coverage
+- Phase 1: Foundation complete
+- Phase 2: Team/Admin/Backup/Activity partial-complete
+- Phase 3: Reports/Templates/Notifications/Archive added
+- Phase 4: Publish Center added as independent module without live API auto-posting
+
+## Added in v5 Final Core
+- Workspace executive overview
+- Goals / KPI tracker
+- Campaign planner
+- Idea Vault
+- Automation Builder
+- Expanded enterprise navigation
+- Phase 5/6 visible modules without external paid infrastructure
+
+## Positioning
+This is the final core package for the current no-auto-posting SaaS scope. External enterprise services such as Stripe billing, real email invitations, social media API publishing, and strict backend permission claims still require provider accounts and API approvals.
