@@ -30,7 +30,7 @@ import Workspace from "./pages/Workspace";
 
 function Login(){
   const {login}=useApp();
-  return <div className="login-page"><div className="login-card"><div className="brand-mark large">OS</div><h1>Creator OS Enterprise v3</h1><p>Content planning, calendar, workflow, media storage, AI, analytics, brands, backup এবং team workspace—সব এক জায়গায়।</p><button className="primary wide" onClick={login}>Continue with Google</button></div></div>
+  return <div className="login-page"><div className="login-card"><div className="brand-mark large">OS</div><h1>Creator OS 2.0 Final Integrated</h1><p>Content planning, calendar, workflow, media storage, AI, analytics, brands, backup এবং team workspace—সব এক জায়গায়।</p><button className="primary wide" onClick={login}>Continue with Google</button></div></div>
 }
 export default function App(){
   const {user,loading}=useApp();
