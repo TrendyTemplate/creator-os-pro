@@ -1,14 +1,25 @@
-# Creator OS Pro
+# Creator OS Premium v2
 
-React + Firebase Creator Content Calendar.
+Professional React + Firebase creator content calendar.
 
-## Deploy
-1. Upload this folder to GitHub.
-2. Import the repo in Vercel.
-3. Build command: `npm run build`
-4. Output directory: `dist`
+## Features
+- Google Login
+- Firestore cloud sync
+- Dashboard
+- Calendar view
+- Kanban board
+- List/search/filter
+- Platform-wise status
+- Same status all platforms
+- Short/Full video
+- Caption, thumbnail, script, video ready indicators
+- Drive/script links
+- Dark mode
+- PWA manifest
 
-## Firestore Rules
+## Firebase Rules
+
+Firebase Console > Firestore > Rules:
 
 ```txt
 rules_version = '2';
@@ -20,3 +31,6 @@ service cloud.firestore {
   }
 }
 ```
+
+## Deploy
+Upload/replace all files in GitHub repository. Vercel will auto-deploy from main branch.
