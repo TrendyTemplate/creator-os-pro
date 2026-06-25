@@ -8,10 +8,10 @@ export const PLATFORMS = {
 };
 export const CATEGORIES = ["Travel","Food","Vlog","Review","Business","Family","Other"];
 export const PRIORITIES = ["Low","Medium","High","Urgent"];
-export const DEFAULT_BRANDS = [
-  {id:"nomad-reza",name:"Nomad Reza",color:"#2563eb"},
-  {id:"designxpress",name:"DesignXpress",color:"#7c3aed"},
-  {id:"sodaimithai",name:"SodaiMithai",color:"#ea580c"},
-  {id:"urbanmens",name:"UrbanMens",color:"#0f766e"}
-];
 export const MEDIA_TYPES = ["Video","Photo","Thumbnail","Music","Logo","Brand Asset","Document","Other"];
+export const DEFAULT_BRANDS = [
+  {id:"nomad-reza",name:"Nomad Reza",color:"#2563eb",description:"Travel vlog and personal creator brand"},
+  {id:"designxpress",name:"DesignXpress",color:"#7c3aed",description:"Creative agency and brand identity"},
+  {id:"sodaimithai",name:"SodaiMithai",color:"#ea580c",description:"Food ecommerce content"},
+  {id:"urbanmens",name:"UrbanMens",color:"#0f766e",description:"Men accessories ecommerce"}
+];

@@ -1,11 +1,1 @@
-import React from "react";
-import {useApp} from "../context/AppContext";
-export default function AuditLog(){
-  const {activity}=useApp();
-  return <div className="page">
-    <div className="page-head"><div><span className="eyebrow">Audit trail</span><h2>Activity Log</h2></div></div>
-    <section className="panel"><h3>Recent Activity</h3>
-      {activity.length?activity.map(a=><div className="activity-row" key={a.id}><b>{a.action}</b><span>{a.target}</span><small>{a.userName || "User"}</small></div>):<div className="empty">No activity yet</div>}
-    </section>
-  </div>
-}
+import React from "react";import {useApp} from "../context/AppContext";export default function AuditLog(){const {activity}=useApp();return <div className="page"><div className="page-head"><div><span className="eyebrow">Audit trail</span><h2>Activity Log</h2></div></div><section className="panel">{activity.length?activity.map(a=><div className="activity-row" key={a.id}><b>{a.action}</b><span>{a.target}</span><small>{a.userName||"User"}</small></div>):<div className="empty">No activity yet</div>}</section></div>}

@@ -1,21 +1,48 @@
-# Creator OS 2.0 Final Integrated Core
+# Creator OS Functional Final
 
-This is the integrated final core built directly on the uploaded live source project.
+External API ছাড়া code দিয়ে 100% functional করা সম্ভব এমন modules included:
 
-Visible upgrades:
-- Completely redesigned sidebar and topbar
-- New premium dashboard hero
-- Final Integrated Build badge
-- New KPI command cards
-- Workspace metrics in sidebar
-- Existing modules retained: Calendar, Kanban, Content Library, Media Library, Publish Center, Templates, Automations, AI Studio, Analytics, Reports, Archive, Team, Brands, Notifications, Backup, Audit, Admin, Billing, System Health, Settings
-- Firebase Auth/Firestore/Storage retained
-- Vercel-ready
+- Google Login + Firebase sync
+- Dashboard
+- Workspace overview
+- Calendar
+- Campaigns
+- Goals
+- Idea Vault
+- Kanban
+- Content Library
+- Firebase Storage Media Library
+- Manual Publish Center
+- Templates
+- Automations records
+- AI Studio API route
+- Analytics
+- Reports
+- Archive
+- Team Tasks
+- Brands
+- Notifications
+- Backup Import/Export
+- Audit Log
+- Admin/Roles UI
+- Billing placeholder
+- System Health
+- Settings
+- Dark mode
+- Mobile responsive UI
 
-Deploy:
-1. Delete all current files in GitHub repo root or replace all files with this package.
-2. Commit changes.
-3. Wait for Vercel deploy.
-4. Open the live URL in incognito or hard refresh.
+Not included because external accounts/approvals are required:
+- Social media auto posting
+- Stripe/Paddle live billing
+- Real email invitations
+- Strict multi-user custom claims
+- Push notifications
 
-If you do not see “Creator OS 2.0” and “Final Integrated Build” in the sidebar, the new files were not deployed.
+## Firestore Rules
+Publish `firestore.rules`.
+
+## Storage Rules
+Publish `storage.rules`.
+
+## AI Studio
+Set `OPENAI_API_KEY` in Vercel Environment Variables.

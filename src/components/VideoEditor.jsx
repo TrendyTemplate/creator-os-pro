@@ -3,48 +3,12 @@ import {X} from "lucide-react";
 import PlatformLogo from "./PlatformLogo";
 import {CATEGORIES,PLATFORMS,PLATFORM_STATUSES,PRIORITIES,STAGES} from "../lib/constants";
 import {todayISO} from "../lib/helpers";
-
-const base = {
-  title:"",date:todayISO(),time:"20:00",type:"short",brandId:"",
-  category:"Travel",priority:"Medium",stage:"Scheduled",sameStatus:true,commonStatus:"Scheduled",
-  platformStatus:{facebook:"Scheduled",instagram:"Scheduled",tiktok:"Scheduled",youtube:"Scheduled"},
-  scriptReady:false,shootReady:false,videoReady:false,thumbnailReady:false,captionReady:false,hashtagsReady:false,
-  scriptLink:"",driveLink:"",thumbnailLink:"",caption:"",hashtags:"",notes:""
-};
-
+const base={title:"",date:todayISO(),time:"20:00",type:"short",brandId:"",category:"Travel",priority:"Medium",stage:"Scheduled",sameStatus:true,commonStatus:"Scheduled",platformStatus:{facebook:"Scheduled",instagram:"Scheduled",tiktok:"Scheduled",youtube:"Scheduled"},scriptReady:false,shootReady:false,videoReady:false,thumbnailReady:false,captionReady:false,hashtagsReady:false,scriptLink:"",driveLink:"",thumbnailLink:"",caption:"",hashtags:"",notes:""};
 export default function VideoEditor({initial,brands,onClose,onSave}){
-  const [v,setV] = useState({...base,...initial,brandId:initial?.brandId||brands[0]?.id||""});
-  const allowed = v.type==="full"?["facebook","youtube"]:Object.keys(PLATFORMS);
+  const [v,setV]=useState({...base,...initial,brandId:initial?.brandId||brands[0]?.id||""});
+  const allowed=v.type==="full"?["facebook","youtube"]:Object.keys(PLATFORMS);
   const update=(k,val)=>setV(x=>({...x,[k]:val}));
-
-  useEffect(()=>{
-    const next={};
-    allowed.forEach(p=>next[p]=v.platformStatus?.[p]||v.commonStatus);
-    setV(x=>({...x,platformStatus:next}));
-  },[v.type]);
-
-  const applyCommon = val => {
-    const next={}; Object.keys(v.platformStatus||{}).forEach(p=>next[p]=val);
-    setV(x=>({...x,commonStatus:val,platformStatus:next}));
-  };
-
-  return <div className="modal">
-    <form className="modal-card" onSubmit={e=>{e.preventDefault();onSave(v)}}>
-      <div className="modal-head"><div><span className="eyebrow">Content Planner</span><h3>{v.id?"Edit Video":"Add Video"}</h3></div><button type="button" onClick={onClose}><X/></button></div>
-      <label>Video Title</label><input required value={v.title} onChange={e=>update("title",e.target.value)} />
-      <div className="two-col"><div><label>Date</label><input type="date" value={v.date} onChange={e=>update("date",e.target.value)}/></div><div><label>Time</label><input type="time" value={v.time} onChange={e=>update("time",e.target.value)}/></div></div>
-      <label>Video Type</label><div className="segmented"><button type="button" className={v.type==="short"?"active":""} onClick={()=>update("type","short")}>Short Video</button><button type="button" className={v.type==="full"?"active":""} onClick={()=>update("type","full")}>Full Video</button></div>
-      <div className="two-col"><div><label>Brand</label><select value={v.brandId} onChange={e=>update("brandId",e.target.value)}>{brands.map(b=><option key={b.id} value={b.id}>{b.name}</option>)}</select></div><div><label>Category</label><select value={v.category} onChange={e=>update("category",e.target.value)}>{CATEGORIES.map(x=><option key={x}>{x}</option>)}</select></div></div>
-      <div className="two-col"><div><label>Workflow Stage</label><select value={v.stage} onChange={e=>update("stage",e.target.value)}>{STAGES.map(x=><option key={x}>{x}</option>)}</select></div><div><label>Priority</label><select value={v.priority} onChange={e=>update("priority",e.target.value)}>{PRIORITIES.map(x=><option key={x}>{x}</option>)}</select></div></div>
-      <label>Platforms</label><div className="platform-picker">{allowed.map(p=><button type="button" className={v.platformStatus?.[p]?"active":""} key={p} onClick={()=>{const next={...v.platformStatus}; next[p]?delete next[p]:next[p]=v.commonStatus; update("platformStatus",next);}}><PlatformLogo platform={p}/>{PLATFORMS[p].name}</button>)}</div>
-      <label className="toggle-row"><span>Same status for all selected platforms</span><input type="checkbox" checked={v.sameStatus} onChange={e=>update("sameStatus",e.target.checked)}/></label>
-      {v.sameStatus ? <><label>Common Status</label><select value={v.commonStatus} onChange={e=>applyCommon(e.target.value)}>{PLATFORM_STATUSES.map(x=><option key={x}>{x}</option>)}</select></> : <div className="platform-status-list">{Object.keys(v.platformStatus||{}).map(p=><div key={p}><span><PlatformLogo platform={p}/>{PLATFORMS[p].name}</span><select value={v.platformStatus[p]} onChange={e=>update("platformStatus",{...v.platformStatus,[p]:e.target.value})}>{PLATFORM_STATUSES.map(x=><option key={x}>{x}</option>)}</select></div>)}</div>}
-      <div className="check-grid">{["scriptReady","shootReady","videoReady","thumbnailReady","captionReady","hashtagsReady"].map(k=><label key={k}><input type="checkbox" checked={!!v[k]} onChange={e=>update(k,e.target.checked)}/>{k.replace("Ready"," Ready")}</label>)}</div>
-      <div className="two-col"><div><label>Script Link</label><input value={v.scriptLink} onChange={e=>update("scriptLink",e.target.value)}/></div><div><label>Drive Link</label><input value={v.driveLink} onChange={e=>update("driveLink",e.target.value)}/></div></div>
-      <label>Caption</label><textarea rows="3" value={v.caption} onChange={e=>update("caption",e.target.value)}/>
-      <label>Hashtags</label><input value={v.hashtags} onChange={e=>update("hashtags",e.target.value)}/>
-      <label>Notes</label><textarea rows="3" value={v.notes} onChange={e=>update("notes",e.target.value)}/>
-      <button className="primary wide">Save Video</button>
-    </form>
-  </div>
+  useEffect(()=>{const next={}; allowed.forEach(p=>next[p]=v.platformStatus?.[p]||v.commonStatus); setV(x=>({...x,platformStatus:next}))},[v.type]);
+  const applyCommon=val=>{const next={}; Object.keys(v.platformStatus||{}).forEach(p=>next[p]=val); setV(x=>({...x,commonStatus:val,platformStatus:next}))};
+  return <div className="modal"><form className="modal-card" onSubmit={e=>{e.preventDefault();onSave(v)}}><div className="modal-head"><div><span className="eyebrow">Content Planner</span><h3>{v.id?"Edit Video":"Add Video"}</h3></div><button type="button" onClick={onClose}><X/></button></div><label>Video Title</label><input required value={v.title} onChange={e=>update("title",e.target.value)}/><div className="two-col"><div><label>Date</label><input type="date" value={v.date} onChange={e=>update("date",e.target.value)}/></div><div><label>Time</label><input type="time" value={v.time} onChange={e=>update("time",e.target.value)}/></div></div><label>Video Type</label><div className="segmented"><button type="button" className={v.type==="short"?"active":""} onClick={()=>update("type","short")}>Short Video</button><button type="button" className={v.type==="full"?"active":""} onClick={()=>update("type","full")}>Full Video</button></div><div className="two-col"><div><label>Brand</label><select value={v.brandId} onChange={e=>update("brandId",e.target.value)}>{brands.map(b=><option key={b.id} value={b.id}>{b.name}</option>)}</select></div><div><label>Category</label><select value={v.category} onChange={e=>update("category",e.target.value)}>{CATEGORIES.map(x=><option key={x}>{x}</option>)}</select></div></div><div className="two-col"><div><label>Stage</label><select value={v.stage} onChange={e=>update("stage",e.target.value)}>{STAGES.map(x=><option key={x}>{x}</option>)}</select></div><div><label>Priority</label><select value={v.priority} onChange={e=>update("priority",e.target.value)}>{PRIORITIES.map(x=><option key={x}>{x}</option>)}</select></div></div><label>Platforms</label><div className="platform-picker">{allowed.map(p=><button type="button" className={v.platformStatus?.[p]?"active":""} key={p} onClick={()=>{const next={...v.platformStatus}; next[p]?delete next[p]:next[p]=v.commonStatus; update("platformStatus",next)}}><PlatformLogo platform={p}/>{PLATFORMS[p].name}</button>)}</div><label className="toggle-row"><span>Same status for selected platforms</span><input type="checkbox" checked={v.sameStatus} onChange={e=>update("sameStatus",e.target.checked)}/></label>{v.sameStatus?<><label>Common Status</label><select value={v.commonStatus} onChange={e=>applyCommon(e.target.value)}>{PLATFORM_STATUSES.map(x=><option key={x}>{x}</option>)}</select></>:<div className="platform-status-list">{Object.keys(v.platformStatus||{}).map(p=><div key={p}><span><PlatformLogo platform={p}/>{PLATFORMS[p].name}</span><select value={v.platformStatus[p]} onChange={e=>update("platformStatus",{...v.platformStatus,[p]:e.target.value})}>{PLATFORM_STATUSES.map(x=><option key={x}>{x}</option>)}</select></div>)}</div>}<div className="check-grid">{["scriptReady","shootReady","videoReady","thumbnailReady","captionReady","hashtagsReady"].map(k=><label key={k}><input type="checkbox" checked={!!v[k]} onChange={e=>update(k,e.target.checked)}/>{k.replace("Ready"," Ready")}</label>)}</div><div className="two-col"><div><label>Script Link</label><input value={v.scriptLink} onChange={e=>update("scriptLink",e.target.value)}/></div><div><label>Drive Link</label><input value={v.driveLink} onChange={e=>update("driveLink",e.target.value)}/></div></div><label>Caption</label><textarea rows="3" value={v.caption} onChange={e=>update("caption",e.target.value)}/><label>Hashtags</label><input value={v.hashtags} onChange={e=>update("hashtags",e.target.value)}/><label>Notes</label><textarea rows="3" value={v.notes} onChange={e=>update("notes",e.target.value)}/><button className="primary wide">Save Video</button></form></div>
 }

@@ -1,6 +1,6 @@
 export const todayISO = () => new Date().toISOString().slice(0,10);
-export const toDateTime = item => new Date(`${item.date}T${item.time || "00:00"}`);
-export const formatDate = value => new Date(`${value}T00:00:00`).toLocaleDateString("bn-BD",{day:"numeric",month:"short",year:"numeric"});
+export const toDateTime = item => new Date(`${item.date || todayISO()}T${item.time || "00:00"}`);
+export const formatDate = value => value ? new Date(`${value}T00:00:00`).toLocaleDateString("bn-BD",{day:"numeric",month:"short",year:"numeric"}) : "";
 export const formatTime = value => {
   const [h,m] = String(value || "00:00").split(":").map(Number);
   const d = new Date(); d.setHours(h,m,0,0);
@@ -23,15 +23,13 @@ export const timeLeft = item => {
 };
 export const fileSize = bytes => {
   if(!bytes) return "0 KB";
-  const units=["B","KB","MB","GB"];
-  let size=bytes, i=0;
+  const units=["B","KB","MB","GB"]; let size=bytes, i=0;
   while(size>=1024 && i<units.length-1){size/=1024;i++}
   return `${size.toFixed(i?1:0)} ${units[i]}`;
 };
 export const downloadJson = (filename,data) => {
   const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href=url; a.download=filename; a.click();
+  const a = document.createElement("a"); a.href=url; a.download=filename; a.click();
   URL.revokeObjectURL(url);
 };
